@@ -3,6 +3,10 @@ import 'package:flutter/services.dart';
 import 'package:pdf_view/pdfview.dart';
 import 'package:pdf_view/splashscreen.dart';
 
+import 'daftarisi.dart';
+import 'flipbook.dart';
+import 'menu_utama.dart';
+
 void main() {
   SystemChrome.setSystemUIOverlayStyle(
     const SystemUiOverlayStyle(
@@ -18,6 +22,9 @@ void main() {
       title: 'Splash Screen',
       routes: <String, WidgetBuilder>{
         '/SplashScreen': (BuildContext context) => const SplashScreen(),
+        '/MyWebViewPage': (BuildContext context) => const MyWebViewPage(),
+        '/HalUtama': (BuildContext context) => const HalUtama(),
+        '/DaftarIsi': (BuildContext context) => const DaftarIsi(),
         '/PDFViewPage': (BuildContext context) => const PDFViewPage(
               pdfPath: '',
               pageNumber: 1,

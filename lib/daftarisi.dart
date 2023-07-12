@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:pdf_view/pdfview.dart';
 
+import 'flipbook.dart';
+
 class DaftarIsi extends StatefulWidget {
   const DaftarIsi({super.key});
 
@@ -82,13 +84,28 @@ class _DaftarIsiState extends State<DaftarIsi> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        iconTheme: const IconThemeData(
+          color: Colors.black,
+        ),
         title: const Text(
-          'DIPARANIGADIS',
+          'Daftar isi',
           style: TextStyle(
             color: Colors.black,
           ),
         ),
         backgroundColor: const Color(0xFFfdede9),
+        // actions: [
+        //   IconButton(
+        //     onPressed: () {
+        //       Navigator.pushNamed(context, '/MyWebViewPage');
+
+        //     },
+        //     icon: const Icon(
+        //       Icons.menu_book,
+        //       color: Colors.black,
+        //     ),
+        //   ),
+        // ],
       ),
       body: Column(
         children: [

@@ -3,6 +3,8 @@ import 'dart:async';
 
 import 'package:pdf_view/daftarisi.dart';
 
+import 'menu_utama.dart';
+
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
 
@@ -26,7 +28,7 @@ class _SplashScreenState extends State<SplashScreen> {
         Navigator.of(context).pushReplacement(
           MaterialPageRoute(
             builder: (_) {
-              return const DaftarIsi(); //masuk halaman login
+              return const HalUtama(); //masuk halaman login
             },
           ),
         );
@@ -42,7 +44,10 @@ class _SplashScreenState extends State<SplashScreen> {
         body: SizedBox(
           width: double.infinity,
           height: double.infinity,
-          child: Image.asset('assets/image/splash.png', fit: BoxFit.cover),
+          child: Image.asset(
+            'assets/image/splash.png',
+            fit: BoxFit.cover,
+          ),
         ));
   }
 }

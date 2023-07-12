@@ -82,6 +82,8 @@ class _PDFViewPageState extends State<PDFViewPage> {
               children: [
                 Expanded(
                   child: PDFView(
+                    enableSwipe: true,
+                    swipeHorizontal: true,
                     filePath: pdfPath,
                     defaultPage: widget.pageNumber,
                     onPageChanged: onPageChanged,
