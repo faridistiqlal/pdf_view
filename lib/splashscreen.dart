@@ -7,6 +7,7 @@ class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
 
   @override
+  // ignore: library_private_types_in_public_api
   _SplashScreenState createState() => _SplashScreenState();
 }
 
@@ -35,10 +36,10 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   Widget build(BuildContext context) {
-    MediaQueryData mediaQueryData = MediaQuery.of(context);
+    // MediaQueryData mediaQueryData = MediaQuery.of(context);
     return Scaffold(
         backgroundColor: const Color(0xFFffffff),
-        body: Container(
+        body: SizedBox(
           width: double.infinity,
           height: double.infinity,
           child: Image.asset('assets/image/splash.png', fit: BoxFit.cover),

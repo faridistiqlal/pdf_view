@@ -9,13 +9,16 @@ import 'package:path_provider/path_provider.dart';
 class PDFViewPage extends StatefulWidget {
   final String pdfPath;
   final int pageNumber;
+  final String title;
   const PDFViewPage({
     super.key,
     required this.pdfPath,
     required this.pageNumber,
+    required this.title,
   });
 
   @override
+  // ignore: library_private_types_in_public_api
   _PDFViewPageState createState() => _PDFViewPageState();
 }
 
@@ -23,7 +26,7 @@ class _PDFViewPageState extends State<PDFViewPage> {
   late int pageNumber;
   late String pdfPath;
   bool isLoading = true;
-
+  double zoom = 1.0; // Initial zoom level
   @override
   void initState() {
     super.initState();
@@ -59,7 +62,17 @@ class _PDFViewPageState extends State<PDFViewPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('PDF Viewer'),
+        iconTheme: const IconThemeData(
+          color: Colors.black, // change your color here
+        ),
+        title: Text(
+          widget.title,
+          style: const TextStyle(
+            color: Colors.black,
+          ),
+        ),
+        backgroundColor: const Color(0xFFfdede9),
+        // title: const Text('PDF Viewer'),
       ),
       body: isLoading
           ? const Center(
@@ -74,13 +87,13 @@ class _PDFViewPageState extends State<PDFViewPage> {
                     onPageChanged: onPageChanged,
                   ),
                 ),
-                Text(
-                  'Page: $pageNumber',
-                  style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
+                // Text(
+                //   'Page: $pageNumber',
+                //   style: const TextStyle(
+                //     fontSize: 16,
+                //     fontWeight: FontWeight.bold,
+                //   ),
+                // ),
               ],
             ),
     );

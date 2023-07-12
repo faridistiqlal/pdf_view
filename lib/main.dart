@@ -18,8 +18,11 @@ void main() {
       title: 'Splash Screen',
       routes: <String, WidgetBuilder>{
         '/SplashScreen': (BuildContext context) => const SplashScreen(),
-        '/PDFViewPage': (BuildContext context) =>
-            const PDFViewPage(pdfPath: '', pageNumber: 1),
+        '/PDFViewPage': (BuildContext context) => const PDFViewPage(
+              pdfPath: '',
+              pageNumber: 1,
+              title: '',
+            ),
       },
       home: const SplashScreen(),
     ),

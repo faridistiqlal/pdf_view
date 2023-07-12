@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_pdfview/flutter_pdfview.dart';
 import 'package:pdf_view/pdfview.dart';
 
 class DaftarIsi extends StatefulWidget {
@@ -61,97 +60,106 @@ class _DaftarIsiState extends State<DaftarIsi> {
       'page': '51'
     },
   ];
+  List<Map<String, String>> filteredDisciplineList = [];
+  @override
+  void initState() {
+    super.initState();
+    filteredDisciplineList = disciplineList;
+  }
+
+  void filterDisciplineList(String query) {
+    setState(() {
+      // Filter the list based on the query
+      filteredDisciplineList = disciplineList
+          .where((item) =>
+              item['code']!.toLowerCase().contains(query.toLowerCase()) ||
+              item['title']!.toLowerCase().contains(query.toLowerCase()))
+          .toList();
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text(
-          'Daftar Isi',
+          'DIPARANIGADIS',
           style: TextStyle(
             color: Colors.black,
           ),
         ),
         backgroundColor: const Color(0xFFfdede9),
       ),
-      body: Container(
-        color: Colors.white,
-        child: ListView.builder(
-          itemCount: disciplineList.length,
-          itemBuilder: (context, index) {
-            final item = disciplineList[index];
-            return Padding(
-              padding: const EdgeInsets.all(2.0),
-              child: Container(
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: const BorderRadius.all(Radius.circular(10.0)),
-                  boxShadow: [
-                    BoxShadow(
-                        color: Colors.black.withOpacity(0.1),
-                        offset: const Offset(0.0, 3.0),
-                        blurRadius: 7.0),
-                  ],
-                ),
-                child: Material(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10.0),
-                  ),
-                  child: InkWell(
-                    onTap: () {
-                      // Navigator.pushNamed(context, '/PDFViewPage');
-                      final pageNumber = int.tryParse(item['page'] ?? '');
-                      if (pageNumber != null) {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => PDFViewPage(
-                              pdfPath: 'assets/pdf/panduan.pdf',
-                              pageNumber: pageNumber,
-                            ),
-                          ),
-                        );
-                      }
-                    },
-                    child: ListTile(
-                      leading: Text(
-                        item['code']!,
-                        style: const TextStyle(fontWeight: FontWeight.bold),
+      body: Column(
+        children: [
+          Container(
+            padding: const EdgeInsets.all(8.0),
+            color: Colors.white,
+            child: TextField(
+              onChanged:
+                  filterDisciplineList, // Call the filtering function when the text changes
+              decoration: const InputDecoration(
+                hintText: 'Cari disini...',
+                border: OutlineInputBorder(),
+              ),
+            ),
+          ),
+          Expanded(
+            child: ListView.builder(
+              itemCount: filteredDisciplineList.length,
+              itemBuilder: (context, index) {
+                final item = filteredDisciplineList[index];
+                return Padding(
+                  padding: const EdgeInsets.all(2.0),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius:
+                          const BorderRadius.all(Radius.circular(10.0)),
+                      boxShadow: [
+                        BoxShadow(
+                            color: Colors.black.withOpacity(0.1),
+                            offset: const Offset(0.0, 3.0),
+                            blurRadius: 7.0),
+                      ],
+                    ),
+                    child: Material(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10.0),
                       ),
-                      title: Text(item['title']!),
-                      trailing: Text(
-                        item['page'] ?? '', // Check if page number is available
-                        style: const TextStyle(color: Colors.black),
+                      child: InkWell(
+                        onTap: () {
+                          // Navigator.pushNamed(context, '/PDFViewPage');
+                          final pageNumber = int.tryParse(item['page'] ?? '');
+                          if (pageNumber != null) {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => PDFViewPage(
+                                  pdfPath: 'assets/pdf/panduan.pdf',
+                                  pageNumber: pageNumber - 1,
+                                  title: item['title']!,
+                                ),
+                              ),
+                            );
+                          }
+                        },
+                        child: ListTile(
+                          leading: Text(
+                            item['code']!,
+                            style: const TextStyle(fontWeight: FontWeight.bold),
+                          ),
+                          title: Text(item['title']!),
+                        ),
                       ),
                     ),
                   ),
-                ),
-              ),
-            );
-          },
-        ),
+                );
+              },
+            ),
+          ),
+        ],
       ),
     );
   }
 }
-
-// class PDFViewPage extends StatelessWidget {
-//   final String pdfPath;
-//   final int pageNumber;
-
-//   const PDFViewPage(
-//       {super.key, required this.pdfPath, required this.pageNumber});
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       appBar: AppBar(
-//         title: Text('PDF Viewer'),
-//       ),
-//       body: PDFView(
-//         filePath: pdfPath,
-//         defaultPage: pageNumber,
-//       ),
-//     );
-//   }
-// }
